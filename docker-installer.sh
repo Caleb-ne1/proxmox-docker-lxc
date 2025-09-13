@@ -16,11 +16,21 @@ for cmd in whiptail pvesh pct pveam jq curl; do
 done
 
 # banner
-echo -e "\033[1;36m===================================\033[0m"
-echo -e "\033[1;36m      DOCKER + PORTAINER LXC       \033[0m"
-echo -e "\033[1;36m===================================\033[0m"
-echo -e "\033[1;33mCreated by: @Caleb Kibet\033[0m"
+echo -e "\033[1;34m    ____             __              __   \033[0m"
+echo -e "\033[1;34m   / __ \____  _____/ /_____  ____  / /   \033[0m"
+echo -e "\033[1;34m  / / / / __ \/ ___/ //_/ _ \/ __ \/ /    \033[0m"
+echo -e "\033[1;34m / /_/ / /_/ / /__/ ,< /  __/ / / / /     \033[0m"
+echo -e "\033[1;34m/_____/\____/\___/_/|_|\___/_/ /_/_/      \033[0m"
+echo -e "\033[1;36m  ___          __        __                \033[0m"
+echo -e "\033[1;36m / _ \___ ___ / /  ___  / /__  ___         \033[0m"
+echo -e "\033[1;36m/ , _/ -_|_-</ /__/ _ \/ / _ \/ -_)        \033[0m"
+echo -e "\033[1;36m/_/|_|\__/___/____/\___/_/\___/\__/         \033[0m"
+echo -e "\033[1;32m========================================\033[0m"
+echo -e "\033[1;32m      Docker + Portainer LXC Setup     \033[0m"
+echo -e "\033[1;32m========================================\033[0m"
+echo -e "\033[1;32m            Created by: \033[1;33mCaleb Kibet\033[0m"
 echo ""
+
 
 # select template storage
 TEMPLATE_STORAGES=($(pvesh get /nodes/localhost/storage --output-format=json \
