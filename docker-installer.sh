@@ -97,15 +97,21 @@ success "Template ready."
 # detect storage type for rootfs
 STORAGE_TYPE=$(pvesh get /nodes/localhost/storage --output-format=json \
     | jq -r ".[] | select(.storage==\"$CT_STORAGE\") | .type")
-if [ "$STORAGE_TYPE" = "lvmthin" ] || [ "$STORAGE_TYPE" = "lvm" ]; then
-    ROOTFS_PARAM="$CT_STORAGE:$DISK_NUMBER"
-elif [ "$STORAGE_TYPE" = "dir" ] || [ "$STORAGE_TYPE" = "nfs" ] || [ "$STORAGE_TYPE" = "cifs" ]; then
+case "$STORAGE_TYPE" in
+  lvmthin|lvm)
     ROOTFS_PARAM="$CT_STORAGE:$DISK"
-elif [ "$STORAGE_TYPE" = "zfspool" ]; then
+    ;;
+  dir|nfs|cifs)
     ROOTFS_PARAM="$CT_STORAGE:size=$DISK"
-else
-    error "Unsupported storage type: $STORAGE_TYPE"; exit 1
-fi
+    ;;
+  zfspool)
+    ROOTFS_PARAM="$CT_STORAGE:size=$DISK"
+    ;;
+  *)
+    echo "Unsupported storage type: $STORAGE_TYPE" >&2
+    exit 1
+    ;;
+esac
 
 # create LXC container
 info "Creating LXC container..."
