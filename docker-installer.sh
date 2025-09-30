@@ -98,20 +98,15 @@ success "Template ready."
 STORAGE_TYPE=$(pvesh get /nodes/localhost/storage --output-format=json \
     | jq -r ".[] | select(.storage==\"$CT_STORAGE\") | .type")
 case "$STORAGE_TYPE" in
-  lvmthin|lvm)
+  lvmthin|lvm|dir|nfs|cifs|zfspool)
     ROOTFS_PARAM="$CT_STORAGE:$DISK"
-    ;;
-  dir|nfs|cifs)
-    ROOTFS_PARAM="$CT_STORAGE:size=$DISK"
-    ;;
-  zfspool)
-    ROOTFS_PARAM="$CT_STORAGE:size=$DISK"
     ;;
   *)
     echo "Unsupported storage type: $STORAGE_TYPE" >&2
     exit 1
     ;;
 esac
+
 
 # create LXC container
 info "Creating LXC container..."
